@@ -6,7 +6,7 @@ resource "aws_default_vpc" "default" {
   }
 }
 
-# Public subnetss
+# Public subnets
 resource "aws_default_subnet" "public-subnet-1" { 
   tags = {
     Name = "public-subnet-1"

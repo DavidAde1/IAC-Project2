@@ -16,7 +16,25 @@ AWS Auto Scaling groups (ASGs) let you easily scale and manage a collection of E
 1. An AWS Account(IAM user preferably)
 2. OpenTofu installed on your local machine. You can follow the guide [here](https://opentofu.org/docs/intro/install/)
 
-## Before we get started with this, i want to endeavor you to check the part 1 above, we will be making a few additions and removals from there.Moving on, let's create 3 new files to add to the files from part 1 in our code editor:
-**alb.tf**
-**autoscaling.tf**
-**output.tf**
+## Before we get started with this, i want to endeavor you to check the part 1 above, we will be making some additions and changes from there.Moving on, let's create 3 new files to add to the files from part 1 in our code editor:
+**alb.tf** 
+**autoscaling.tf**  
+**output.tf**  
+
+# Provider
+ I didn't make any changes in the **main.tf** file from the part 1. We declared the AWS provider with the desired region,the iam account secret key and access key using a variable.
+
+# Variable 
+ Inside the **variables.tf** file i added a new variable called availability_zones to specify the 2 availability zones for our public subnets. we also have the necessary variables for configuration, including the  AWS secret key,AWS access key and AWS region. 
+
+ # Network
+  Inside the **network.tf** file we will create our VPC and subnet resources. In the previous project, we used just a single default subnet with just 1 availability zone but in this project we will create 2 subnets with an availability zone attched to each of them.
+
+# Security
+Inside the **security.tf** we will be creating 2 security groups for this project.We are creating for the load balancer and the vpc network.So we will also add this line of code in the ingress block for our vpc security group to allow inbound access to from the ALB only.
+'security_groups = [aws_security_group.load-balancer.id]' 
+
+
+
+
+
