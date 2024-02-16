@@ -25,13 +25,13 @@ AWS Auto Scaling groups (ASGs) let you easily scale and manage a collection of E
  I didn't make any changes in the **main.tf** file from the part 1. We declared the AWS provider with the desired region,the iam account secret key and access key using a variable.
 
 # Variable 
- Inside the **variables.tf** file i added a new variable called availability_zones to specify the 2 availability zones for our public subnets. we also have the necessary variables for configuration, including the  AWS secret key,AWS access key and AWS region. 
+ Inside the **variables.tf** file, i added a new variable called availability_zones to specify the 2 availability zones for our public subnets. we also have the necessary variables for configuration, including the  AWS secret key,AWS access key and AWS region. 
 
  # Network
-  Inside the **network.tf** file we will create our VPC and subnet resources. In the previous project, we used just a single default subnet with just 1 availability zone but in this project we will create 2 subnets with an availability zone attched to each of them.
+  Inside the **network.tf** file, we will create our VPC and subnet resources. In the previous project, we used just a single default subnet with just 1 availability zone but in this project we will create 2 subnets with an availability zone attched to each of them.
 
 # Security
-Inside the **security.tf** we will be creating 2 security groups for this project.We are creating for the load balancer and the vpc network.So we will also add this line of code in the ingress block for our vpc security group to allow inbound access to from the ALB only.
+Inside the **security.tf**, we will be creating 2 security groups for this project.We are creating for the load balancer and the vpc network.So we will also add this line of code in the ingress block for our vpc security group to allow inbound access to from the ALB only.
 `security_groups = [aws_security_group.load-balancer.id]`
 
 
@@ -40,6 +40,19 @@ In the **server.tf**, we are going to define a new resource called ```aws_launch
 ```
 echo "<h1>loading from $(hostname -f)..</h1>" > /var/www/html/index.html
 ```
+# Create Auto Scaling group
+ASG allow for dynamic scaling and make it easier to manage a group of instances that host the same services. In the **autoscaling.tf** file, we will create ```aws_autoscaling_group``` resource and define the following in the resource:
+    -the minimum and maximum number of instances allowed in the group.
+    -the desired count to launch (desired_capacity).
+    -the launch configuration to use for each instance in the group.
+    -a list of subnets where the ASG will launch new instances
+
+# Create Load Balancer resources for the infrastructure
+ The ```aws_lb``` resource creates an application load balancer, which routes traffic at the application layer. In the **alb.tf** file, the load balancer will be associated with the specified subnets and security group, and will be given a tag with the specified key-value pair. We also created 3 other resources that the load balancer resource is dependent on, you can read more about them in the Load balancer resource section [here](https://developer.hashicorp.com/terraform/tutorials/aws/aws-asg)
+
+# Output
+The **output.tf** file will output our loadbalancer dns address in the console,so we can check loadbalancer in action and view the hostnames of the instances.
+
 
 
 
