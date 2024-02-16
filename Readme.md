@@ -32,9 +32,14 @@ AWS Auto Scaling groups (ASGs) let you easily scale and manage a collection of E
 
 # Security
 Inside the **security.tf** we will be creating 2 security groups for this project.We are creating for the load balancer and the vpc network.So we will also add this line of code in the ingress block for our vpc security group to allow inbound access to from the ALB only.
-'security_groups = [aws_security_group.load-balancer.id]' 
+`security_groups = [aws_security_group.load-balancer.id]`
 
 
+# Create instance template 
+In the **server.tf**, we are going to define a new resource called ```aws_launch_configuration``` instead of the normal```aws_instance``` resource from part 1. A launch configuration specifies the EC2 instance configuration that an ASG will use to launch each new instance.Inside the user_data field, we will add a new line of code to showcase the hostname of the instance responding via the load-balancer.
+```
+echo "<h1>loading from $(hostname -f)..</h1>" > /var/www/html/index.html
+```
 
 
 
