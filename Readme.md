@@ -17,9 +17,9 @@ AWS Auto Scaling groups (ASGs) let you easily scale and manage a collection of E
 2. OpenTofu installed on your local machine. You can follow the guide [here](https://opentofu.org/docs/intro/install/)
 
 ## Before we get started with this, i want to endeavor you to check the part 1 above, we will be making some additions and changes from there.Moving on, let's create 3 new files to add to the files from part 1 in our code editor:
-**alb.tf** 
-**autoscaling.tf**  
-**output.tf**  
+**alb.tf**  
+**autoscaling.tf**   
+**output.tf**   
 
 # Provider
  I didn't make any changes in the **main.tf** file from the part 1. We declared the AWS provider with the desired region,the iam account secret key and access key using a variable.
