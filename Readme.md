@@ -16,7 +16,7 @@ AWS Auto Scaling groups (ASGs) let you easily scale and manage a collection of E
 1. An AWS Account(IAM user preferably)
 2. OpenTofu installed on your local machine. You can follow the guide [here](https://opentofu.org/docs/intro/install/)
 
-## Before we get started with this, i want to endeavor you to check the part 1 above, we will be making some additions and changes from there.Moving on, let's create 3 new files to add to the files from part 1 in our code editor:
+## Before we get started with this, i want to endeavor you to check the part 1 above in the INTRODUCTION SECTION, we will be making some additions and changes from there.Moving on, let's create 3 new files to add to the files from part 1 in our code editor:
 **alb.tf**  
 **autoscaling.tf**   
 **output.tf**   
@@ -53,6 +53,35 @@ ASG allow for dynamic scaling and make it easier to manage a group of instances 
 # Output
 The **output.tf** file will output our loadbalancer dns address in the console,so we can check loadbalancer in action and view the hostnames of the instances.
 
+# Conclusion 
+## We are finally ready to deploy our infrastructure with OpenTofu which is an open source IAC tool.Use the following commands below:
+
+ **tofu init** to set up the backend for OpenTofu.
+You should see this kind of output in your terminal in the image below.
+![Tofu init](/images/tofuinit.png)
+
+ **tofu plan** to see what the resources will be created.
+You should see this kind of output in your terminal in the image below.
+![Tofu plan](/images/tofuplan.png)
+
+**tofu apply** to deploy the environment designed in the code.
+You should see this kind of output in your terminal in the image below.
+![Tofu apply](/images/tofuapply.png)
+
+## Let's take a look in our AWS console together to confirm our infrastructure was deployed right.
+![AWS Console](/images/consolecheck.png)
+You can see above in the image that all the resources were created by terraform successfully 
+
+## Lets's also view our load balancer in action and copy the value of the```elb-dns-name``` shown in our terminal 
+![ALB Check](/images/ip1.png)
+![ALB Check](/images/ip2.png)
+
+### We can see above the index.html file exposed in our browser showing the IPs of the instances responding and receiving requests
+
+### Let's delete our infrastructure using:
+**tofu destroy** when you no longer need it.
+You can see below it was successfully destroyed
+![Terraform Destroy](/images/tofudestroy.png)
 
 
 
